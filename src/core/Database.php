@@ -56,27 +56,47 @@ trait Database
         $this->offset = 0;
     }
 
-    public function getListItemsWithCondition($fields, $value)
+    public function getListItemsWithCondition($conditions)
     {
         $this->connect();
-        $sql = "SELECT * FROM $this->table WHERE $fields = '$value'";
 
+        // Xây dựng câu lệnh WHERE từ mảng conditions
+        $whereClauses = [];
+        foreach ($conditions as $field => $value) {
+            // Sử dụng prepared statements để tránh SQL injection
+            $whereClauses[] = "$field = ?";
+        }
+        $whereClause = implode(' AND ', $whereClauses);
+
+        $sql = "SELECT * FROM $this->table WHERE " . $whereClause;
         $sql .= " LIMIT $this->limit OFFSET $this->offset";
 
-        $result = $this->conn->query($sql);
-        $this->resetQuery();
+        // Chuẩn bị statement
+        $stmt = $this->conn->prepare($sql);
 
-        if ($result) {
+        if ($stmt) {
+            // Bind parameters
+            $values = array_values($conditions);
+            $types = str_repeat('s', count($values)); // Giả sử tất cả là string, có thể điều chỉnh theo nhu cầu
+            $stmt->bind_param($types, ...$values);
+
+            // Thực thi query
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $this->resetQuery();
+
             $returnData = array();
             while ($row = $result->fetch_object()) {
                 $returnData[] = $row;
             }
+
+            $stmt->close();
             $this->conn->close();
             return $returnData;
         } else {
-            // Handle the case where the query fails
             $this->conn->close();
-            die("Error in SQL query: " . $this->conn->error);
+            die("Error preparing SQL query: " . $this->conn->error);
         }
     }
 
@@ -125,7 +145,7 @@ trait Database
         $this->statement->bind_param(str_repeat('s', count($data)), ...$values);
         $this->statement->execute();
         $this->resetQuery();
-        $this->conn->close();
+
         return $this->statement->affected_rows;
     }
     public function insertMultiple($dataArray = [])
@@ -182,15 +202,91 @@ trait Database
         $this->conn->close();
         return $this->statement->affected_rows;
     }
-    public function delete($fields, $value)
+    public function delete(array $conditions)
     {
         $this->connect();
-        $sql = "DELETE FROM $this->table WHERE $fields = ?";
+
+        // Build the WHERE clause
+        $whereClauses = [];
+        $params = [];
+        $types = '';
+
+        foreach ($conditions as $field => $value) {
+            $whereClauses[] = "$field = ?";
+            $params[] = $value;
+            // Assuming all values are strings ('s'), adjust if needed
+            $types .= 's';
+        }
+
+        // Join conditions with AND
+        $whereString = implode(' AND ', $whereClauses);
+
+        // Prepare the SQL statement
+        $sql = "DELETE FROM $this->table WHERE $whereString";
         $this->statement = $this->conn->prepare($sql);
-        $this->statement->bind_param('s', $value);
+
+        // Bind parameters dynamically
+        if (!empty($params)) {
+            $this->statement->bind_param($types, ...$params);
+        }
+
+        // Execute and return affected rows
         $this->statement->execute();
+        $affectedRows = $this->statement->affected_rows;
+
         $this->resetQuery();
         $this->conn->close();
-        return $this->statement->affected_rows;
+
+        return $affectedRows;
+    }
+    public function search($searchTerm, $fields, $limit = 10, $offset = 0)
+    {
+        $this->connect();
+
+        // Convert string to array if a single field is provided
+        if (is_string($fields)) {
+            $fields = [$fields];
+        }
+
+        // Check if fields is now a valid array
+        if (!is_array($fields) || empty($fields)) {
+            $this->conn->close();
+            die("Error: Fields parameter must be a non-empty array or string");
+        }
+
+        // Build WHERE clause with LIKE conditions for each field
+        $whereClauses = [];
+        $params = [];
+        $types = '';
+
+        foreach ($fields as $field) {
+            $whereClauses[] = "$field LIKE ?";
+            $params[] = "%" . $searchTerm . "%";
+            $types .= 's'; // Assuming all fields are strings
+        }
+
+        $whereClause = implode(' OR ', $whereClauses);
+        $sql = "SELECT * FROM $this->table WHERE $whereClause LIMIT ? OFFSET ?";
+
+        // Add limit and offset to parameters
+        $params[] = $limit;
+        $params[] = $offset;
+        $types .= 'ii'; // Two integers for limit and offset
+
+        // Prepare and execute the statement
+        $this->statement = $this->conn->prepare($sql);
+        $this->statement->bind_param($types, ...$params);
+        $this->statement->execute();
+        $result = $this->statement->get_result();
+        $this->resetQuery();
+
+        // Fetch results
+        $returnData = [];
+        while ($row = $result->fetch_object()) {
+            $returnData[] = $row;
+        }
+
+        $this->conn->close();
+        return $returnData;
     }
 }

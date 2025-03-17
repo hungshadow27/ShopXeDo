@@ -3,7 +3,7 @@
     <h1 class="text-3xl font-bold mb-8"><?php echo htmlspecialchars($category->name); ?></h1>
 
     <!-- Thanh tìm kiếm -->
-    <form action="" method="GET" class="mb-8">
+    <form action="product" method="GET" class="mb-8">
         <div class="flex flex-col md:flex-row gap-4">
             <div class="relative flex-1">
                 <input type="text" name="search"
@@ -18,7 +18,9 @@
                     </svg>
                 </button>
             </div>
-            <input type="hidden" name="category_id" value="<?php echo htmlspecialchars($category->id); ?>">
+            <?php if ($category->name = '') { ?>
+                <input type="hidden" name="category_id" value="<?php echo htmlspecialchars($category->id); ?>">
+            <?php } ?>
         </div>
     </form>
 
@@ -71,8 +73,8 @@
                         <p class="text-red-600 font-semibold">
                             <?php echo number_format($product->price, 0, ',', '.'); ?> VNĐ
                         </p>
-                        <p class="text-sm text-yellow-300">Đánh giá: 5/5★</p>
-                        <button class="mt-2 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                        <p class="text-sm text-yellow-300">Đánh giá: <?= $ratingProduct[$product->id] ?>/5★</p>
+                        <button onclick="addCart(event, <?= $product->id ?>)" class="mt-2 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
                             Thêm vào giỏ
                         </button>
                     </div>

@@ -1,5 +1,6 @@
 <?php
-require "./src/Models/UserModel.php";
+require_once "./src/Models/UserModel.php";
+require_once "./src/Models/CartModel.php";
 class LoginController
 {
     use Controller;
@@ -12,7 +13,8 @@ class LoginController
     }
     public function index($a = '', $b = '', $c = '')
     {
-        $this->view('login.view');
+        $data['error'] = "";
+        $this->view('login.view', $data);
     }
     public function signin()
     {
@@ -26,11 +28,14 @@ class LoginController
             if ($user != null) {
                 if ($user->username == $username && $user->password == $password) {
                     $_SESSION['USER'] = serialize($user);
+                    $cartmodel = new CartModel;
+                    $cart = $cartmodel->getCartByUserId($user->id);
+                    $_SESSION['CART'] = $cart;
                     redirect('home');
                     exit;
                 }
             }
-            $data['errors'] = "Thông tin tài khoản hoặc mật khẩu không chính xác!";
+            $data['error'] = "Thông tin tài khoản hoặc mật khẩu không chính xác!";
         }
         $this->view('login.view', $data);
     }
@@ -46,9 +51,9 @@ class LoginController
             $usermodel = new UserModel;
             $user = $usermodel->getUserByUsername($username);
             if ($user != null) {
-                $data['errors'] = "Tài khoản đã tồn tại!";
+                $data['error'] = "Tài khoản đã tồn tại!";
             } else if (strcmp($password, $repassword)) {
-                $data['errors'] = "Mật khẩu nhập lại không khớp";
+                $data['error'] = "Mật khẩu nhập lại không khớp";
             } else {
                 //create new user
                 $usermodel->createNewUser($username, $password);
@@ -57,7 +62,7 @@ class LoginController
                 //$cartmodel = new CartModel;
                 //$cartmodel->createNewCart($user->getId());
 
-                $data['errors'] = "Đăng ký thành công vui lòng đăng nhập!";
+                $data['error'] = "Đăng ký thành công vui lòng đăng nhập!";
             }
         }
         $this->view('login.view', $data);

@@ -18,42 +18,9 @@
     </style>
 </head>
 
-<body class="text-white" style="background-image: url('Public/images/loginbg.webp');background-position: center top; background-repeat: no-repeat;  background-size: cover;">
-    <?php
-    $error = '';
-
-    // Xử lý đăng nhập
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
-        $email = trim($_POST['email']);
-        $password = trim($_POST['password']);
-
-        // Giả lập kiểm tra (thay bằng database trong thực tế)
-        if ($email === 'test@example.com' && $password === '123456') {
-            $_SESSION['user'] = $email;
-            header('Location: index.php'); // Chuyển hướng sau khi đăng nhập thành công
-            exit;
-        } else {
-            $error = 'Email hoặc mật khẩu không đúng!';
-        }
-    }
-
-    // Xử lý đăng ký
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
-        $name = trim($_POST['name']);
-        $email = trim($_POST['email']);
-        $password = trim($_POST['password']);
-        $confirm_password = trim($_POST['confirm_password']);
-
-        if ($password !== $confirm_password) {
-            $error = 'Mật khẩu xác nhận không khớp!';
-        } else {
-            // Lưu vào database trong thực tế
-            $error = 'Đăng ký thành công! Vui lòng đăng nhập.'; // Giả lập
-        }
-    }
-    ?>
+<body class="text-white" style="background-image: url('<?= ROOT ?>/Public/images/loginbg.webp');background-position: center top; background-repeat: no-repeat;  background-size: cover;">
     <a class="flex items-center justify-center gap-1 py-20" href="<?= ROOT ?>/home">
-        <img src="Public/images/logowheel.png" alt="Logo" class="w-20">
+        <img src="<?= ROOT ?>/Public/images/logowheel.png" alt="Logo" class="w-20">
         <span class="text-3xl font-extrabold" style="color:white; text-shadow: 2px 2px 5px red;">DOXETIENLANG</span>
     </a>
     <div class="flex items-center justify-center">
@@ -78,10 +45,10 @@
             <?php } ?>
 
             <!-- Form đăng nhập -->
-            <form id="login-form" action="" method="POST" class="space-y-4">
+            <form id="login-form" action="<?= ROOT ?>/login/signin" method="POST" class="space-y-4">
                 <div>
-                    <label class="block text-sm font-medium mb-1" for="login-email">Email</label>
-                    <input type="email" id="login-email" name="email"
+                    <label class="block text-sm font-medium mb-1" for="login-username">Username</label>
+                    <input type="username" id="login-username" name="username"
                         class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
                         required>
                 </div>
@@ -92,7 +59,7 @@
                         required>
                 </div>
                 <button type="submit" name="login"
-                    class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                    class="cursor-pointer w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
                     Đăng Nhập
                 </button>
                 <p class="text-sm text-center">
@@ -101,16 +68,10 @@
             </form>
 
             <!-- Form đăng ký -->
-            <form id="register-form" action="" method="POST" class="space-y-4 hidden">
+            <form id="register-form" action="<?= ROOT ?>/login/signup" method="POST" class="space-y-4 hidden">
                 <div>
-                    <label class="block text-sm font-medium mb-1" for="register-name">Họ và tên</label>
-                    <input type="text" id="register-name" name="name"
-                        class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
-                        required>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium mb-1" for="register-email">Email</label>
-                    <input type="email" id="register-email" name="email"
+                    <label class="block text-sm font-medium mb-1" for="register-username">Username</label>
+                    <input type="username" id="register-username" name="username"
                         class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
                         required>
                 </div>
@@ -122,12 +83,12 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium mb-1" for="confirm-password">Xác nhận mật khẩu</label>
-                    <input type="password" id="confirm-password" name="confirm_password"
+                    <input type="password" id="confirm-password" name="repassword"
                         class="w-full p-2 border rounded focus:outline-none focus:border-blue-500"
                         required>
                 </div>
                 <button type="submit" name="register"
-                    class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                    class="cursor-pointer w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
                     Đăng Ký
                 </button>
             </form>

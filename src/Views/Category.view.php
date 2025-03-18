@@ -39,7 +39,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     <?php foreach ($category['products'] as $product) { ?>
                         <a href="<?= ROOT ?>/product?id=<?php echo $product->id; ?>" class="rounded-lg shadow-md overflow-hidden">
-                            <img src="Public/images/<?php echo unserialize($product->image)[0]; ?>"
+                            <img src="Public/images/<?php echo $imageModel->getImageByName(unserialize($product->image)[0])->file_name; ?>"
                                 alt="<?php echo $product->name; ?>"
                                 class="w-full h-48 object-cover">
                             <div class="p-4">

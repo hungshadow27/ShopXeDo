@@ -1,5 +1,7 @@
 <?php require_once "./src/Views/layouts/header.php";
 require_once "./src/Models/RatingModel.php";
+require_once "./src/Models/ImageModel.php";
+$imageModel = new ImageModel();
 $ratingModel = new RatingModel();
 
 ?>
@@ -66,7 +68,7 @@ $ratingModel = new RatingModel();
                             <div class="order-container">
                                 <?php foreach ($order->products as $op) : ?>
                                     <div class="flex items-center justify-between w-full border border-gray-500 p-3 text-center">
-                                        <img class="w-1/6" src="<?= ROOT ?>/Public/images/<?= !empty(unserialize($op->product->image)[0]) ? unserialize($op->product->image)[0] : 'default.jpg' ?>" alt="">
+                                        <img class="w-1/6" src="<?= ROOT ?>/Public/images/<?php echo $imageModel->getImageByName(unserialize($op->product->image)[0])->file_name; ?>" alt="">
                                         <span class="w-1/6"><?= $op->product->name ?? 'N/A' ?></span>
                                         <span class="w-1/6"><?= number_format($op->product->price ?? 0, 0, ',', '.') ?>đ</span>
                                         <span class="w-1/6"><?= $op->quantity ?? 0 ?></span>
@@ -106,7 +108,7 @@ $ratingModel = new RatingModel();
                                     <?php foreach ($order->products as $op) : ?>
                                         <div class="w-full border border-gray-500 p-3 text-center">
                                             <div class="flex items-center gap-3">
-                                                <img class="w-1/6" src="<?= ROOT ?>/Public/images/<?= !empty(unserialize($op->product->image)[0]) ? unserialize($op->product->image)[0] : 'default.jpg' ?>" alt="<?= $op->product->name ?>">
+                                                <img class="w-1/6" src="<?= ROOT ?>/Public/images/<?php echo $imageModel->getImageByName(unserialize($op->product->image)[0])->file_name; ?>" alt="<?= $op->product->name ?>">
                                                 <span><?= $op->product->name ?? 'N/A' ?></span>
                                             </div>
                                             <form action="<?= ROOT ?>/rating/add" method="POST" class="mt-3 w-full text-black">

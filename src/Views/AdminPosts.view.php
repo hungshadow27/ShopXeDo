@@ -1,5 +1,7 @@
-<?php require_once "./src/Views/layouts/header.php"; ?>
-<main class="max-w-6xl w-full mx-auto py-6 min-h-96">
+<?php require_once "./src/Views/layouts/headerAdmin.php";
+require_once "./src/Models/ImageModel.php";
+$imageModel = new ImageModel(); ?>
+<main class="py-6 px-3 min-h-[1000px] ml-64">
     <h1 class="text-2xl font-bold mb-6 text-center">Quản Lý Bài Viết</h1>
     <a href="<?= ROOT ?>/admin/posts/add" class="mb-4 inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Thêm bài viết</a>
     <table class="w-full text-left border-collapse">
@@ -20,7 +22,7 @@
                     <td class="p-3"><?php echo htmlspecialchars($post->title); ?></td>
                     <td class="p-3">
                         <?php if ($post->thumbnail) { ?>
-                            <img src="<?php echo htmlspecialchars($post->thumbnail); ?>" alt="Thumbnail" class="w-16 h-16 object-cover">
+                            <img src="<?= ROOT ?>/Public/images/<?php echo htmlspecialchars($imageModel->getImageByName($post->thumbnail)->file_name); ?>" alt="Thumbnail" class="w-16 h-16 object-cover">
                         <?php } else { ?>
                             Chưa có ảnh
                         <?php } ?>
@@ -36,4 +38,4 @@
         </tbody>
     </table>
 </main>
-<?php require_once "./src/Views/layouts/footer.php"; ?>
+<?php require_once "./src/Views/layouts/footerAdmin.php"; ?>

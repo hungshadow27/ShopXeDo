@@ -16,7 +16,7 @@
                 <div class="w-1/3">
                     <div class="flex items-center">
                         <input type="checkbox" class="mr-2 checkbox" />
-                        <img class="w-1/4" src="<?= ROOT ?>/Public/images/<?= unserialize($product->image)[0] ?>" alt="" />
+                        <img class="w-1/4" src="<?= ROOT ?>/Public/images/<?php echo $imageModel->getImageByName(unserialize($product->image)[0])->file_name; ?>" alt="" />
                         <a href="<?= ROOT ?>/product?id=<?= $product->id ?>"
                             class="text-xl font-medium no-underline px-3 hover:text-blue-600">
                             <?= $product->name ?>

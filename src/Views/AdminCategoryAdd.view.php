@@ -1,5 +1,5 @@
-<?php require_once "./src/Views/layouts/header.php"; ?>
-<main class="max-w-6xl w-full mx-auto py-6 min-h-96">
+<?php require_once "./src/Views/layouts/headerAdmin.php"; ?>
+<main class="py-6 px-3 min-h-[1000px] ml-64">
     <h1 class="text-2xl font-bold mb-6 text-center">Thêm Danh Mục</h1>
 
     <!-- Thông báo -->
@@ -21,7 +21,7 @@
         </div>
         <div>
             <label class="block text-sm font-medium mb-1">Hình ảnh</label>
-            <input type="text" name="image" class="w-full p-2 border rounded focus:outline-none focus:border-blue-500" placeholder="category_image.jpg">
+            <input type="text" name="image" class="w-full p-2 border rounded focus:outline-none focus:border-blue-500" placeholder="category_image">
         </div>
         <div>
             <label class="block text-sm font-medium mb-1">Nổi bật</label>
@@ -33,4 +33,4 @@
         </div>
     </form>
 </main>
-<?php require_once "./src/Views/layouts/footer.php"; ?>
+<?php require_once "./src/Views/layouts/footerAdmin.php"; ?>

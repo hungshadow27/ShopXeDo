@@ -17,10 +17,12 @@
         }
     </style>
 </head>
+<?php require_once "./src/Models/ImageModel.php";
+$imageModel = new ImageModel(); ?>
 
-<body class="text-white" style="background-image: url('<?= ROOT ?>/Public/images/loginbg.webp');background-position: center top; background-repeat: no-repeat;  background-size: cover;">
+<body class="text-white" style="background-image: url('<?= ROOT ?>/Public/images/<?php echo $imageModel->getImageByName('loginbg')->file_name; ?>');background-position: center top; background-repeat: no-repeat;  background-size: cover;">
     <a class="flex items-center justify-center gap-1 py-20" href="<?= ROOT ?>/home">
-        <img src="<?= ROOT ?>/Public/images/logowheel.png" alt="Logo" class="w-20">
+        <img src="<?= ROOT ?>/Public/images/<?php echo $imageModel->getImageByName('logo')->file_name; ?>" alt="Logo" class="w-20">
         <span class="text-3xl font-extrabold" style="color:white; text-shadow: 2px 2px 5px red;">DOXETIENLANG</span>
     </a>
     <div class="flex items-center justify-center">

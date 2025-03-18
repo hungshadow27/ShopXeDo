@@ -23,7 +23,7 @@ $transportFee = 30000;
             <div class="w-full flex items-center text-center mt-4">
                 <div class="w-1/4">
                     <div class="flex items-center">
-                        <img class="w-25" src="<?= ROOT ?>/Public/images/<?= unserialize($product->image)[0] ?>" alt="" />
+                        <img class="w-25" src="<?= ROOT ?>/Public/images/<?php echo $imageModel->getImageByName(unserialize($product->image)[0])->file_name; ?>" alt="" />
                         <span class="font-bold px-3"><?= $product->name ?></span>
                     </div>
                 </div>

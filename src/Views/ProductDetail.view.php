@@ -1,5 +1,7 @@
 <?php require_once "./src/Views/layouts/header.php";
 require_once "./src/Models/UserModel.php";
+require_once "./src/Models/ImageModel.php";
+$imageModel = new ImageModel();
 $userModel = new UserModel();
 ?>
 <main class="container mx-auto py-8">
@@ -21,13 +23,13 @@ $userModel = new UserModel();
                 <!-- Hình ảnh sản phẩm -->
                 <div class="product-gallery">
                     <div class="main-image-container">
-                        <img src="Public/images/<?php echo unserialize($product->image)[0]; ?>"
+                        <img src="Public/images/<?php echo $imageModel->getImageByName(unserialize($product->image)[0])->file_name; ?>"
                             alt="<?php echo $product->name; ?>"
                             class="w-full h-96 object-cover rounded-lg mb-4 main-product-image">
                     </div>
                     <div class="flex gap-2 thumbnail-container">
                         <?php foreach (unserialize($product->image) as $image) { ?>
-                            <img src="Public/images/<?php echo $image ?>"
+                            <img src="Public/images/<?php echo $imageModel->getImageByName($image)->file_name; ?>"
                                 alt="<?php echo $product->name; ?>"
                                 class="w-20 h-20 object-cover rounded-lg cursor-pointer hover:opacity-75 thumbnail">
                         <?php } ?>

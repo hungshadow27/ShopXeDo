@@ -1,5 +1,5 @@
-<?php require_once "./src/Views/layouts/header.php"; ?>
-<main class="max-w-6xl w-full mx-auto py-6 min-h-96">
+<?php require_once "./src/Views/layouts/headerAdmin.php"; ?>
+<main class="py-6 px-3 min-h-[1000px] ml-64">
     <h1 class="text-2xl font-bold mb-6 text-center">Chỉnh Sửa Sản Phẩm</h1>
 
     <!-- Thông báo -->
@@ -21,7 +21,7 @@
         </div>
         <div>
             <label class="block text-sm font-medium mb-1">Hình ảnh (cách nhau bởi dấu phẩy)</label>
-            <input type="text" name="images" value="<?php echo htmlspecialchars(implode(',', unserialize($product->image))); ?>" class="text-black w-full p-2 border rounded focus:outline-none focus:border-blue-500" placeholder="image1.jpg,image2.jpg">
+            <input type="text" name="images" value="<?php echo htmlspecialchars(implode(',', unserialize($product->image))); ?>" class="text-black w-full p-2 border rounded focus:outline-none focus:border-blue-500" placeholder="image1,image2">
         </div>
         <div>
             <label class="block text-sm font-medium mb-1">Giá (VNĐ)</label>
@@ -50,4 +50,4 @@
 <script>
     CKEDITOR.replace('description');
 </script>
-<?php require_once "./src/Views/layouts/footer.php"; ?>
+<?php require_once "./src/Views/layouts/footerAdmin.php"; ?>

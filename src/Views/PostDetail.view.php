@@ -1,4 +1,6 @@
-<?php require_once "./src/Views/layouts/header.php"; ?>
+<?php require_once "./src/Views/layouts/header.php";
+require_once "./src/Models/ImageModel.php";
+$imageModel = new ImageModel(); ?>
 <main class="max-w-4xl w-full mx-auto py-6 min-h-96">
     <h1 class="text-3xl font-bold mb-4"><?php echo htmlspecialchars($post->title); ?></h1>
 
@@ -8,7 +10,7 @@
     </div>
 
     <?php if ($post->thumbnail) { ?>
-        <img src="<?php echo htmlspecialchars($post->thumbnail); ?>" alt="<?php echo htmlspecialchars($post->title); ?>" class="w-full h-64 object-cover mb-6 rounded">
+        <img src="Public/images/<?php echo $imageModel->getImageByName($post->thumbnail)->file_name; ?>" alt="<?php echo htmlspecialchars($post->title); ?>" class="w-full h-64 object-cover mb-6 rounded">
     <?php } ?>
 
     <div class="prose max-w-none">

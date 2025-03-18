@@ -1,4 +1,6 @@
-<?php require_once "./src/Views/layouts/header.php"; ?>
+<?php require_once "./src/Views/layouts/header.php";
+require_once "./src/Models/ImageModel.php";
+$imageModel = new ImageModel(); ?>
 <main class="max-w-6xl w-full mx-auto py-6 min-h-96">
     <h1 class="text-2xl font-bold mb-6 text-center">Danh Sách Bài Viết</h1>
 
@@ -13,7 +15,7 @@
         <?php foreach ($paginated_posts as $post) { ?>
             <div class="border rounded-lg p-4 shadow hover:shadow-lg transition-shadow">
                 <?php if ($post->thumbnail) { ?>
-                    <img src="<?php echo htmlspecialchars($post->thumbnail); ?>" alt="<?php echo htmlspecialchars($post->title); ?>" class="w-full h-48 object-cover mb-2 rounded">
+                    <img src="Public/images/<?php echo $imageModel->getImageByName($post->thumbnail)->file_name; ?>" alt="<?php echo htmlspecialchars($post->title); ?>" class="w-full h-48 object-cover mb-2 rounded">
                 <?php } ?>
                 <h2 class="text-lg font-semibold mb-2"><?php echo htmlspecialchars($post->title); ?></h2>
                 <p class="text-gray-600 mb-2"><?php echo substr(strip_tags($post->content), 0, 100) . '...'; ?></p>

@@ -1,4 +1,7 @@
-<?php require_once "./src/Views/layouts/header.php"; ?>
+<?php require_once "./src/Views/layouts/header.php";
+require_once "./src/Models/ImageModel.php";
+$imageModel = new ImageModel();
+?>
 <main class="container mx-auto py-8">
     <h1 class="text-3xl font-bold mb-8"><?php echo htmlspecialchars($category->name); ?></h1>
 
@@ -65,7 +68,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             <?php foreach ($paginated_products as $product) { ?>
                 <a href="<?= ROOT ?>/product?id=<?php echo $product->id; ?>" class="rounded-lg shadow-md overflow-hidden">
-                    <img src="Public/images/<?php echo unserialize($product->image)[0]; ?>"
+                    <img src="Public/images/<?php echo $imageModel->getImageByName(unserialize($product->image)[0])->file_name; ?>"
                         alt="<?php echo $product->name; ?>"
                         class="w-full h-48 object-cover">
                     <div class="p-4">

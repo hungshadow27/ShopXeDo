@@ -16,6 +16,13 @@ class PostModel
             ->getOne('id', $id);
         return $rs;
     }
+    public function getRecentlyPosts()
+    {
+        $rs = $this->table("posts")
+            ->limit(3)
+            ->getAllDESC();
+        return $rs;
+    }
 
     public function addPost($title, $content, $thumbnail = null)
     {

@@ -3,7 +3,9 @@ require_once "./src/Models/CateogryModel.php";
 require_once "./src/Models/ProductModel.php";
 require_once "./src/Models/OrderModel.php";
 require_once "./src/Models/UserModel.php";
-require_once "./src/Models/PostModel.php"; // Thêm model cho bài viết
+require_once "./src/Models/PostModel.php";
+require_once "./src/Models/ImageModel.php";
+
 
 class AdminController
 {
@@ -301,6 +303,124 @@ class AdminController
             $posts = $postModel->getAllPosts();
             $data['posts'] = $posts;
             $this->view('AdminPosts.view', $data);
+        }
+    }
+    // Quản lý hình ảnh
+    public function images($action = '', $id = '')
+    {
+        $user = $this->checkAuth();
+        $imageModel = new ImageModel();
+
+        if ($action === 'add') {
+            $error = '';
+            $success = '';
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $name = trim($_POST['name']);
+                $fileUpload = $_FILES['fileUpload'];
+                if ($name && $fileUpload) {
+                    if ($imageModel->getImageByName($name)) {
+                        $error = 'Tên ảnh đã tồn tại!';
+                    } else {
+                        //Thư mục bạn lưu file upload
+                        $target_dir = $target_dir = "C:/xampp/htdocs/ShopXeDo/Public/images/";
+                        //Đường dẫn lưu file trên server
+                        $target_file   = $target_dir . basename($_FILES["fileUpload"]["name"]);
+                        $allowUpload   = true;
+                        //Lấy phần mở rộng của file (txt, jpg, png,...)
+                        $fileType = pathinfo($target_file, PATHINFO_EXTENSION);
+                        //Những loại file được phép upload
+                        $allowtypes    = array('jpg', 'png');
+                        //Kích thước file lớn nhất được upload (bytes)
+                        $maxfilesize   = 10000000; //10MB
+
+                        //1. Kiểm tra file có bị lỗi không?
+                        if ($_FILES["fileUpload"]['error'] != 0) {
+                            echo "<br>The uploaded file is error or no file selected.";
+                            die;
+                        }
+
+                        //2. Kiểm tra loại file upload có được phép không?
+                        if (!in_array($fileType, $allowtypes)) {
+                            echo "<br>Only allow for uploading .jpg or .png files.";
+                            $allowUpload = false;
+                        }
+
+                        //3. Kiểm tra kích thước file upload có vượt quá giới hạn cho phép
+                        if ($_FILES["fileUpload"]["size"] > $maxfilesize) {
+                            echo "<br>Size of the uploaded file must be smaller than $maxfilesize bytes.";
+                            $allowUpload = false;
+                        }
+
+                        // //4. Kiểm tra file đã tồn tại trên server chưa?
+                        // if (file_exists($target_file)) {
+                        //     echo "<br>The file name already exists on the server.";
+                        //     $allowUpload = false;
+                        // }
+
+                        if ($allowUpload) {
+                            //Lưu file vào thư mục được chỉ định trên server
+                            if (move_uploaded_file($_FILES["fileUpload"]["tmp_name"], $target_file)) {
+                                $imageModel = new ImageModel();
+                                $imageModel->addImage($name, basename($_FILES["fileUpload"]["name"]));
+                                $success = 'Thêm Hình ảnh thành công!';
+                            } else {
+                                $error = 'Có lỗi xảy ra!';
+                            }
+                        }
+                    }
+                } else {
+                    $error = 'Vui lòng nhập đầy đủ tiêu đề và nội dung!';
+                }
+            }
+            $data['error'] = $error;
+            $data['success'] = $success;
+            $this->view('AdminImageAdd.view', $data);
+        } elseif ($action === 'edit' && $id) {
+            $image = $imageModel->getImageById($id);
+            if (!$image) {
+                redirect('admin/images');
+                exit;
+            }
+            $error = '';
+            $success = '';
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $name = trim($_POST['name']);
+
+                if ($name) {
+                    if ($imageModel->getImageByName($name)) {
+                        $error = 'Tên hình ảnh đã tồn tại!';
+                    } else {
+                        $imageModel->updateImageName($id, $name);
+                        $success = 'Cập nhật tên hình ảnh thành công!';
+                        $image = $imageModel->getImageById($id);
+                    }
+                } else {
+                    $error = 'Vui lòng nhập đầy đủ tiêu đề và nội dung!';
+                }
+            }
+            $data['image'] = $image;
+            $data['error'] = $error;
+            $data['success'] = $success;
+            $this->view('AdminImageEdit.view', $data);
+        } elseif ($action === 'delete' && $id) {
+            $imageModel->deleteImage($id);
+            redirect('admin/images');
+            exit;
+        } else {
+            $current = 1;
+            if (isset($_GET['page'])) {
+                $current  = $_GET['page'];
+            }
+            $limit = 9;
+            $offset = ($current - 1) * $limit;
+            $total_pages = ceil($imageModel->getCountAllImage() / $limit);
+            $images = $imageModel->getAllImage($limit, $offset);
+            $data['limit'] = $limit;
+            $data['offset'] = $offset;
+            $data['current'] = $current;
+            $data['total_pages'] = $total_pages;
+            $data['images'] = $images;
+            $this->view('AdminImages.view', $data);
         }
     }
     // Quản lý người dùng

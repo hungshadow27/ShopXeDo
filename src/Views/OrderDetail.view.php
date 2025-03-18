@@ -1,4 +1,6 @@
-<?php require_once "./src/Views/layouts/header.php"; ?>
+<?php require_once "./src/Views/layouts/header.php";
+require_once "./src/Models/ImageModel.php";
+$imageModel = new ImageModel(); ?>
 <main class="p-4">
     <h1 class="text-2xl text-center font-medium uppercase">Chi tiết đơn hàng</h1>
     <div class="mt-3 p-3 border border-gray-500 rounded-sm">
@@ -23,7 +25,7 @@
             <div class="w-full flex items-center text-center mt-4">
                 <div class="w-1/4">
                     <div class="flex items-center">
-                        <img class="w-25" src="<?= ROOT ?>/Public/images/<?= unserialize($op->product->image)[0] ?>" alt="" />
+                        <img class="w-25" src="<?= ROOT ?>/Public/images/<?php echo $imageModel->getImageByName(unserialize($op->product->image)[0])->file_name; ?>" alt="" />
                         <span class="font-bold px-3"><?= $op->product->name ?></span>
                     </div>
                 </div>

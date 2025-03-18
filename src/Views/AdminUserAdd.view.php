@@ -1,5 +1,5 @@
-<?php require_once "./src/Views/layouts/header.php"; ?>
-<main class="max-w-6xl w-full mx-auto py-6 min-h-96">
+<?php require_once "./src/Views/layouts/headerAdmin.php"; ?>
+<main class="py-6 px-3 min-h-[1000px] ml-64">
     <h1 class="text-2xl font-bold mb-6 text-center">Thêm Người Dùng</h1>
 
     <!-- Thông báo -->
@@ -56,4 +56,4 @@
         </div>
     </form>
 </main>
-<?php require_once "./src/Views/layouts/footer.php"; ?>
+<?php require_once "./src/Views/layouts/footerAdmin.php"; ?>

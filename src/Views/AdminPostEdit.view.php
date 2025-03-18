@@ -1,5 +1,5 @@
-<?php require_once "./src/Views/layouts/header.php"; ?>
-<main class="max-w-6xl w-full mx-auto py-6 min-h-96">
+<?php require_once "./src/Views/layouts/headerAdmin.php"; ?>
+<main class="py-6 px-3 min-h-[1000px] ml-64">
     <h1 class="text-2xl font-bold mb-6 text-center">Chỉnh Sửa Bài Viết</h1>
 
     <!-- Thông báo -->
@@ -16,8 +16,8 @@
             <input type="text" name="title" value="<?php echo htmlspecialchars($post->title); ?>" class="w-full p-2 border rounded focus:outline-none focus:border-blue-500" required>
         </div>
         <div>
-            <label class="block text-sm font-medium mb-1">Ảnh đại diện (URL)</label>
-            <input type="text" name="thumbnail" value="<?php echo htmlspecialchars($post->thumbnail ?? ''); ?>" class="w-full p-2 border rounded focus:outline-none focus:border-blue-500" placeholder="Nhập URL ảnh (ví dụ: image.jpg)">
+            <label class="block text-sm font-medium mb-1">Ảnh đại diện</label>
+            <input type="text" name="thumbnail" value="<?php echo htmlspecialchars($post->thumbnail ?? ''); ?>" class="w-full p-2 border rounded focus:outline-none focus:border-blue-500" placeholder="Nhập tên ảnh">
         </div>
         <div>
             <label class="block text-sm font-medium mb-1">Nội dung</label>
@@ -32,4 +32,4 @@
 <script>
     CKEDITOR.replace('content');
 </script>
-<?php require_once "./src/Views/layouts/footer.php"; ?>
+<?php require_once "./src/Views/layouts/footerAdmin.php"; ?>

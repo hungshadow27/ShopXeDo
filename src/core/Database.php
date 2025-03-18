@@ -118,6 +118,23 @@ trait Database
         $this->conn->close();
         return $returnData;
     }
+    public function getAllDESC()
+    {
+        $this->connect();
+        $sql = "SELECT * FROM $this->table ORDER BY id DESC LIMIT ? OFFSET ?";
+        $this->statement = $this->conn->prepare($sql);
+        $this->statement->bind_param('ss', $this->limit, $this->offset);
+        $this->statement->execute();
+        $this->resetQuery();
+
+        $result = $this->statement->get_result();
+        $returnData = [];
+        while ($row = $result->fetch_object()) {
+            $returnData[] = $row;
+        }
+        $this->conn->close();
+        return $returnData;
+    }
     public function getOne($fields, $value)
     {
         $this->connect();
@@ -288,5 +305,20 @@ trait Database
 
         $this->conn->close();
         return $returnData;
+    }
+    public function count()
+    {
+        $this->connect();
+
+        $sql = "SELECT COUNT(*) as total FROM $this->table";
+        $this->statement = $this->conn->prepare($sql);
+        $this->statement->execute();
+        $result = $this->statement->get_result();
+        $row = $result->fetch_object();
+
+        $this->resetQuery();
+        $this->conn->close();
+
+        return (int)$row->total;
     }
 }

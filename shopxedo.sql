@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 17, 2025 at 02:31 PM
+-- Generation Time: Mar 18, 2025 at 09:38 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -61,9 +61,47 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `description`, `image`, `featured`) VALUES
-(1, 'Combo lên đĩa', 'Xe của bạn bánh trước đang phanh đùm muốn nâng cấp phanh đĩa để có lực phanh tốt hơn xe trở nên đẹp hơn thì hãy lựa chọn những combo lên đĩa của chúng tôi rất nhiều mẫu lựa chọn. Combo đầy đủ dễ lắp đặt hỗ trợ khách hàng lên xe.', 'p1.jpg', '1'),
-(2, 'Đồ chơi phần ghi đông', 'Đây là bộ phận dễ dàng thay thế nhất và cũng được nhiều shop cung cấp. Tùy theo nhu cầu mà bạn cần lựa chọn cho mình các loại ghi đông phù hợp nhất với bản thân cũng như sở thích cá nhân mình ', 'dochoiphanghidong.jpg', '1'),
-(3, 'Xe điện E-Scooter Mini', 'Xe điện gấp gọn dễ sử dụng các mẫu HOT cao cấp.', 'xedienescooter.jpg', '1');
+(1, 'Combo lên đĩa', 'Xe của bạn bánh trước đang phanh đùm muốn nâng cấp phanh đĩa để có lực phanh tốt hơn xe trở nên đẹp hơn thì hãy lựa chọn những combo lên đĩa của chúng tôi rất nhiều mẫu lựa chọn. Combo đầy đủ dễ lắp đặt hỗ trợ khách hàng lên xe.', 'combo-len-dia-category', '1'),
+(2, 'Đồ chơi phần ghi đông', 'Đây là bộ phận dễ dàng thay thế nhất và cũng được nhiều shop cung cấp. Tùy theo nhu cầu mà bạn cần lựa chọn cho mình các loại ghi đông phù hợp nhất với bản thân cũng như sở thích cá nhân mình', 'do-choi-phan-ghi-dong-category', '1'),
+(3, 'Xe điện E-Scooter Mini', 'Xe điện gấp gọn dễ sử dụng các mẫu HOT cao cấp.', 'xe-dien-escooter-category', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `image`
+--
+
+CREATE TABLE `image` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `file_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `image`
+--
+
+INSERT INTO `image` (`id`, `name`, `file_name`) VALUES
+(4, 'test', '1741537494.png'),
+(5, 'combo-len-dia-lv1-new-2022-1', 'combolendialv1new2022-1.jpg'),
+(6, 'combo-len-dia-lv1-new-2022-2', 'combolendialv1new2022-2.jpg'),
+(7, 'combo-len-dia-lv1-new-2022-3', 'combolendialv1new2022-3.jpg'),
+(8, 'bao-tay-baracuda-1', 'baotaybaracuda1.jpg'),
+(9, 'bao-tay-baracuda-2', 'baotaybaracuda2.jpg'),
+(10, 'bao-tay-baracuda-3', 'baotaybaracuda3.jpg'),
+(11, 'combo-len-dia-category', 'p1.jpg'),
+(12, 'do-choi-phan-ghi-dong-category', 'dochoiphanghidong.jpg'),
+(13, 'xe-dien-escooter-category', 'xedienescooter.jpg'),
+(14, 'menu-1', 'menu1.jpg'),
+(15, 'menu-2', 'AccountIcon2.png'),
+(16, 'menu-3', 'menu3.jpg'),
+(17, 'menu-4', 'unnamed.png'),
+(18, 'cac-san-pham-khac-category', 'cacsanphamkhac.jpg'),
+(19, 'service-1', 'ca-ch-mo-tie-m-ru-a-xe-ma-y-thu-ve-30-trie-u-mo-i-tha-ng-2-1583134987-width1004height565.png'),
+(20, 'service-2', 'baoduongxe-01_31cba1ec453d4b9aa71a94dadec1f391.jpg'),
+(21, 'service-3', 't11.jpg'),
+(22, 'loginbg', 'loginbg.jpg'),
+(23, 'logo', 'logowheel.png');
 
 -- --------------------------------------------------------
 
@@ -111,7 +149,7 @@ CREATE TABLE `posts` (
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `thumbnail`, `created_at`, `updated_at`) VALUES
-(1, 'TÉT', '<p><a href=\"https://xedodep.com/wp-content/uploads/2021/10/Untitled-1.jpg\"><img alt=\"\" src=\"https://xedodep.com/wp-content/uploads/2021/10/Untitled-1.jpg\" /></a></p>\r\n\r\n<p><span style=\"font-size:48px\"><span style=\"color:#1abc9c\"><strong>Test 1</strong></span></span></p>\r\n\r\n<p>jhahiufhwbfahfuoqhoungauhfo</p>\r\n\r\n<p><span style=\"color:#9b59b6\"><span style=\"font-size:72px\"><strong>Test 2</strong></span></span></p>\r\n\r\n<p>faohowhjoijqwnoahoid</p>', 'https://xedodep.com/wp-content/uploads/2021/10/Untitled-1.jpg', '2025-03-17 03:05:03', '2025-03-17 09:46:23');
+(1, 'Test', '<p><img alt=\"\" src=\"http://localhost/shopxedo/Public/images/1741537494.png\" style=\"height:855px; width:855px\" /></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p><span style=\"font-size:48px\"><span style=\"color:#1abc9c\"><strong>Test 1</strong></span></span></p>\r\n\r\n<p>&nbsp;</p>\r\n\r\n<p>jhahiufhwbfahfuoqhoungauhfo</p>\r\n\r\n<p><span style=\"color:#9b59b6\"><span style=\"font-size:72px\"><strong>Test 2</strong></span></span></p>\r\n\r\n<p>faohowhjoijqwnoahoid</p>', 'test', '2025-03-17 03:05:03', '2025-03-18 02:02:41');
 
 -- --------------------------------------------------------
 
@@ -135,8 +173,8 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `description`, `image`, `price`, `sale`, `stock_quantity`, `category_id`) VALUES
-(1, 'Combo lên đĩa (LV1) NEW 2022', '<h1><span style=\"font-size:36px\"><span style=\"color:#e74c3c\"><strong>M&ocirc; tả chi tiết&nbsp;</strong></span></span></h1>\r\n\r\n<p>Combo đ&ugrave;m l&ecirc;n đĩa lv1 2022 được XĐĐ lựa chọn tối ưu nhất tiết kiệm nhất v&agrave; đẹp hơn mẫu 2019</p>\r\n\r\n<h1><strong>V&agrave;i điều về sản phẩm</strong></h1>\r\n\r\n<p>Combo lv1 mới kh&aacute;c với combo lv1 củ ở đĩa thắng trước đẹp hơn khi sử dụng đĩa phay lỗ th&aacute;i, v&agrave; mẫu phuộc trước được lựa chọn tốt hơn bởi thương hiệu DPR bảo h&agrave;nh 6 th&aacute;ng</p>\r\n\r\n<h1><strong>C&aacute;c bạn từ Channel Xe độ đẹp đ&aacute;nh gi&aacute;</strong></h1>\r\n\r\n<p>Combo lv1 NEW c&oacute; gi&aacute; th&agrave;nh thấp nhất d&agrave;nh cho học sinh sinh vi&ecirc;n muốn từ phanh đ&ugrave;m l&ecirc;n phanh đĩa trước v&agrave; nh&igrave;n đẹp mắt với đĩa kiểu trước</p>\r\n\r\n<h1><strong>Combo lv1 new gồm c&oacute;:</strong></h1>\r\n\r\n<ol>\r\n	<li>Cặp phuộc trước DPR ( Bảo h&agrave;nh 6 th&aacute;ng )</li>\r\n	<li>Tay thắng dầu</li>\r\n	<li>D&acirc;y dầu</li>\r\n	<li>Heo 1 pis</li>\r\n	<li>Đ&ugrave;m trước</li>\r\n	<li>Căm osaki ( 1 b&aacute;nh trước )</li>\r\n	<li>Đĩa kiểu th&aacute;i</li>\r\n</ol>', 'a:3:{i:0;s:27:\"combolendialv1new2022-1.jpg\";i:1;s:27:\"combolendialv1new2022-2.jpg\";i:2;s:27:\"combolendialv1new2022-3.jpg\";}', 1500000.00, 0.00, 11, 1),
-(2, 'Bao tay Baracuda *Chính hãng', '', 'a:3:{i:0;s:19:\"baotaybaracuda1.jpg\";i:1;s:19:\"baotaybaracuda2.jpg\";i:2;s:19:\"baotaybaracuda3.jpg\";}', 500000.00, 0.00, 11, 2);
+(1, 'Combo lên đĩa (LV1) NEW 2022', '<h1><span style=\"font-size:36px\"><span style=\"color:#e74c3c\"><strong>M&ocirc; tả chi tiết&nbsp;</strong></span></span></h1>\r\n\r\n<p>Combo đ&ugrave;m l&ecirc;n đĩa lv1 2022 được XĐĐ lựa chọn tối ưu nhất tiết kiệm nhất v&agrave; đẹp hơn mẫu 2019</p>\r\n\r\n<h1><strong>V&agrave;i điều về sản phẩm</strong></h1>\r\n\r\n<p>Combo lv1 mới kh&aacute;c với combo lv1 củ ở đĩa thắng trước đẹp hơn khi sử dụng đĩa phay lỗ th&aacute;i, v&agrave; mẫu phuộc trước được lựa chọn tốt hơn bởi thương hiệu DPR bảo h&agrave;nh 6 th&aacute;ng</p>\r\n\r\n<h1><strong>C&aacute;c bạn từ Channel Xe độ đẹp đ&aacute;nh gi&aacute;</strong></h1>\r\n\r\n<p>Combo lv1 NEW c&oacute; gi&aacute; th&agrave;nh thấp nhất d&agrave;nh cho học sinh sinh vi&ecirc;n muốn từ phanh đ&ugrave;m l&ecirc;n phanh đĩa trước v&agrave; nh&igrave;n đẹp mắt với đĩa kiểu trước</p>\r\n\r\n<h1><strong>Combo lv1 new gồm c&oacute;:</strong></h1>\r\n\r\n<ol>\r\n	<li>Cặp phuộc trước DPR ( Bảo h&agrave;nh 6 th&aacute;ng )</li>\r\n	<li>Tay thắng dầu</li>\r\n	<li>D&acirc;y dầu</li>\r\n	<li>Heo 1 pis</li>\r\n	<li>Đ&ugrave;m trước</li>\r\n	<li>Căm osaki ( 1 b&aacute;nh trước )</li>\r\n	<li>Đĩa kiểu th&aacute;i</li>\r\n</ol>', 'a:3:{i:0;s:28:\"combo-len-dia-lv1-new-2022-1\";i:1;s:28:\"combo-len-dia-lv1-new-2022-2\";i:2;s:28:\"combo-len-dia-lv1-new-2022-3\";}', 1500000.00, 0.00, 11, 1),
+(2, 'Bao tay Baracuda *Chính hãng', '', 'a:3:{i:0;s:18:\"bao-tay-baracuda-1\";i:1;s:18:\"bao-tay-baracuda-2\";i:2;s:18:\"bao-tay-baracuda-3\";}', 500000.00, 0.00, 11, 2);
 
 -- --------------------------------------------------------
 
@@ -162,7 +200,7 @@ INSERT INTO `rating` (`id`, `order_id`, `user_id`, `product_id`, `star`, `commen
 (1, 3, 1, 1, 4, 'fff', '2025-03-16 22:13:14'),
 (2, 3, 1, 2, 5, 'aa', '2025-03-16 22:20:09'),
 (3, 4, 1, 1, 5, 'ggg', '2025-03-16 23:10:51'),
-(4, 7, 1, 1, 5, 'ggg', '2025-03-17 16:39:11');
+(4, 7, 1, 1, 5, 'gggaaa', '2025-03-17 16:39:11');
 
 -- --------------------------------------------------------
 
@@ -205,6 +243,12 @@ ALTER TABLE `cart`
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `image`
+--
+ALTER TABLE `image`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -252,6 +296,12 @@ ALTER TABLE `cart`
 --
 ALTER TABLE `category`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `image`
+--
+ALTER TABLE `image`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `orders`

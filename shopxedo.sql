@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2025 at 09:38 AM
+-- Generation Time: Apr 08, 2025 at 05:45 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -39,8 +39,7 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `product_id`, `quantity`) VALUES
-(1, 1, 1, 2),
-(3, 1, 2, 1);
+(3, 1, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -100,8 +99,8 @@ INSERT INTO `image` (`id`, `name`, `file_name`) VALUES
 (19, 'service-1', 'ca-ch-mo-tie-m-ru-a-xe-ma-y-thu-ve-30-trie-u-mo-i-tha-ng-2-1583134987-width1004height565.png'),
 (20, 'service-2', 'baoduongxe-01_31cba1ec453d4b9aa71a94dadec1f391.jpg'),
 (21, 'service-3', 't11.jpg'),
-(22, 'loginbg', 'loginbg.jpg'),
-(23, 'logo', 'logowheel.png');
+(23, 'logo', 'logowheel.png'),
+(24, 'loginbg', 'infopage.png');
 
 -- --------------------------------------------------------
 
@@ -118,16 +117,18 @@ CREATE TABLE `orders` (
   `status` int(1) NOT NULL DEFAULT 0,
   `ispaid` varchar(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `finish_date` datetime DEFAULT NULL
+  `finish_date` datetime DEFAULT NULL,
+  `shipping_method` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `product`, `shipping_address`, `total_cost`, `status`, `ispaid`, `created_at`, `finish_date`) VALUES
-(7, 1, 'a:1:{i:0;a:2:{s:2:\"id\";s:1:\"1\";s:8:\"quantity\";s:1:\"1\";}}', 'ngũ phúc-kiến thụy-hải phòng', 1530000, 2, '0', '2025-03-17 16:38:35', '2025-03-17 16:39:00'),
-(8, 1, 'a:1:{i:0;a:2:{s:2:\"id\";s:1:\"1\";s:8:\"quantity\";s:1:\"2\";}}', 'ngũ phúc-kiến thụy-hải phòng', 3030000, 0, '0', '2025-03-17 20:19:59', NULL);
+INSERT INTO `orders` (`id`, `user_id`, `product`, `shipping_address`, `total_cost`, `status`, `ispaid`, `created_at`, `finish_date`, `shipping_method`) VALUES
+(7, 1, 'a:1:{i:0;a:2:{s:2:\"id\";s:1:\"1\";s:8:\"quantity\";s:1:\"1\";}}', 'ngũ phúc-kiến thụy-hải phòng', 1530000, 2, '0', '2025-03-17 16:38:35', '2025-03-17 16:39:00', 'home'),
+(8, 1, 'a:1:{i:0;a:2:{s:2:\"id\";s:1:\"1\";s:8:\"quantity\";s:1:\"2\";}}', 'ngũ phúc-kiến thụy-hải phòng', 3030000, 0, '0', '2025-03-17 20:19:59', NULL, 'home'),
+(9, 1, 'a:1:{i:0;a:2:{s:2:\"id\";s:1:\"2\";s:8:\"quantity\";s:1:\"2\";}}', 'ngũ phúc-kiến thụy-hải phòng', 1030000, 0, '0', '2025-04-08 21:55:22', NULL, 'store');
 
 -- --------------------------------------------------------
 
@@ -173,7 +174,7 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `name`, `description`, `image`, `price`, `sale`, `stock_quantity`, `category_id`) VALUES
-(1, 'Combo lên đĩa (LV1) NEW 2022', '<h1><span style=\"font-size:36px\"><span style=\"color:#e74c3c\"><strong>M&ocirc; tả chi tiết&nbsp;</strong></span></span></h1>\r\n\r\n<p>Combo đ&ugrave;m l&ecirc;n đĩa lv1 2022 được XĐĐ lựa chọn tối ưu nhất tiết kiệm nhất v&agrave; đẹp hơn mẫu 2019</p>\r\n\r\n<h1><strong>V&agrave;i điều về sản phẩm</strong></h1>\r\n\r\n<p>Combo lv1 mới kh&aacute;c với combo lv1 củ ở đĩa thắng trước đẹp hơn khi sử dụng đĩa phay lỗ th&aacute;i, v&agrave; mẫu phuộc trước được lựa chọn tốt hơn bởi thương hiệu DPR bảo h&agrave;nh 6 th&aacute;ng</p>\r\n\r\n<h1><strong>C&aacute;c bạn từ Channel Xe độ đẹp đ&aacute;nh gi&aacute;</strong></h1>\r\n\r\n<p>Combo lv1 NEW c&oacute; gi&aacute; th&agrave;nh thấp nhất d&agrave;nh cho học sinh sinh vi&ecirc;n muốn từ phanh đ&ugrave;m l&ecirc;n phanh đĩa trước v&agrave; nh&igrave;n đẹp mắt với đĩa kiểu trước</p>\r\n\r\n<h1><strong>Combo lv1 new gồm c&oacute;:</strong></h1>\r\n\r\n<ol>\r\n	<li>Cặp phuộc trước DPR ( Bảo h&agrave;nh 6 th&aacute;ng )</li>\r\n	<li>Tay thắng dầu</li>\r\n	<li>D&acirc;y dầu</li>\r\n	<li>Heo 1 pis</li>\r\n	<li>Đ&ugrave;m trước</li>\r\n	<li>Căm osaki ( 1 b&aacute;nh trước )</li>\r\n	<li>Đĩa kiểu th&aacute;i</li>\r\n</ol>', 'a:3:{i:0;s:28:\"combo-len-dia-lv1-new-2022-1\";i:1;s:28:\"combo-len-dia-lv1-new-2022-2\";i:2;s:28:\"combo-len-dia-lv1-new-2022-3\";}', 1500000.00, 0.00, 11, 1),
+(1, 'Combo lên đĩa (LV1) NEW 2022', '<h1><span style=\"font-size:36px\"><span style=\"color:#e74c3c\"><strong>M&ocirc; tả chi tiết&nbsp;</strong></span></span></h1>\r\n\r\n<p>Combo đ&ugrave;m l&ecirc;n đĩa lv1 2022 được XĐĐ lựa chọn tối ưu nhất tiết kiệm nhất v&agrave; đẹp hơn mẫu 2019</p>\r\n\r\n<h1><strong>V&agrave;i điều về sản phẩm</strong></h1>\r\n\r\n<p>Combo lv1 mới kh&aacute;c với combo lv1 củ ở đĩa thắng trước đẹp hơn khi sử dụng đĩa phay lỗ th&aacute;i, v&agrave; mẫu phuộc trước được lựa chọn tốt hơn bởi thương hiệu DPR bảo h&agrave;nh 6 th&aacute;ng</p>\r\n\r\n<h1><strong>C&aacute;c bạn từ Channel Xe độ đẹp đ&aacute;nh gi&aacute;</strong></h1>\r\n\r\n<p>Combo lv1 NEW c&oacute; gi&aacute; th&agrave;nh thấp nhất d&agrave;nh cho học sinh sinh vi&ecirc;n muốn từ phanh đ&ugrave;m l&ecirc;n phanh đĩa trước v&agrave; nh&igrave;n đẹp mắt với đĩa kiểu trước</p>\r\n\r\n<h1><strong>Combo lv1 new gồm c&oacute;:</strong></h1>\r\n\r\n<ol>\r\n	<li>Cặp phuộc trước DPR ( Bảo h&agrave;nh 6 th&aacute;ng )</li>\r\n	<li>Tay thắng dầu</li>\r\n	<li>D&acirc;y dầu</li>\r\n	<li>Heo 1 pis</li>\r\n	<li>Đ&ugrave;m trước</li>\r\n	<li>Căm osaki ( 1 b&aacute;nh trước )</li>\r\n	<li>Đĩa kiểu th&aacute;i</li>\r\n</ol>', 'a:3:{i:0;s:28:\"combo-len-dia-lv1-new-2022-1\";i:1;s:28:\"combo-len-dia-lv1-new-2022-2\";i:2;s:28:\"combo-len-dia-lv1-new-2022-3\";}', 1500000.00, 0.00, 0, 1),
 (2, 'Bao tay Baracuda *Chính hãng', '', 'a:3:{i:0;s:18:\"bao-tay-baracuda-1\";i:1;s:18:\"bao-tay-baracuda-2\";i:2;s:18:\"bao-tay-baracuda-3\";}', 500000.00, 0.00, 11, 2);
 
 -- --------------------------------------------------------
@@ -301,13 +302,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `image`
 --
 ALTER TABLE `image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `posts`

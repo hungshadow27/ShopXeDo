@@ -47,20 +47,35 @@ class CheckoutController
 
     public function success()
     {
-        if (!isset($_GET['totalcost']) || !isset($_SESSION['USER']) || !isset($_SESSION['productForCheckout'])) {
+        if (
+            !isset($_GET['totalcost']) ||
+            !isset($_GET['shipping_method']) ||
+            !isset($_SESSION['USER']) ||
+            !isset($_SESSION['productForCheckout'])
+        ) {
             redirect('home');
             exit;
         }
 
-        //create new order
         $totalCost = $_GET['totalcost'];
+        $shippingMethod = $_GET['shipping_method']; // "store" hoặc "home"
         $user = unserialize($_SESSION['USER']);
         $productForCheckout = $_SESSION['productForCheckout'];
+
         $orderModel = new OrderModel;
-        $orderModel->createNewOrder($user->id, serialize($productForCheckout), $user->address, $totalCost, 0, 0);
+        // Giả sử cột shipping_method là text lưu "store" hoặc "home"
+        $orderModel->createNewOrder(
+            $user->id,
+            serialize($productForCheckout),
+            $user->address,
+            $totalCost,
+            0,
+            0,
+            $shippingMethod // thêm nếu cần lưu
+        );
+
         unset($_SESSION['productForCheckout']);
         $this->view('ordersuccess.view');
         exit;
-        die();
     }
 }

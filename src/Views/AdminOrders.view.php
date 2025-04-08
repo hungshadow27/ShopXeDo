@@ -11,7 +11,7 @@
                 <th class="p-3">Tổng tiền</th>
                 <th class="p-3">Trạng thái</th>
                 <th class="p-3">Ngày tạo</th>
-                <th class="p-3">Ngày hoàn thành</th>
+                <th class="p-3">Hình thức</th>
                 <th class="p-3">Hành động</th>
             </tr>
         </thead>
@@ -25,7 +25,7 @@
                     <td class="p-3"><?php echo number_format($order->total_cost, 0, ',', '.') . ' VNĐ'; ?></td>
                     <td class="p-3"><?php echo $order->status_str; ?></td>
                     <td class="p-3"><?php echo $order->created_at; ?></td>
-                    <td class="p-3"><?php echo $order->finish_date ?? 'Chưa hoàn thành'; ?></td>
+                    <td class="p-3"><?php echo $order->shipping_method === 'store' ? "Nhận tại cửa hàng" : "Giao hàng tận nơi" ?></td>
                     <td class="p-3">
                         <a href="<?= ROOT ?>/admin/orders/edit/<?php echo $order->id; ?>" class="text-blue-600 hover:underline">Sửa</a>
                     </td>

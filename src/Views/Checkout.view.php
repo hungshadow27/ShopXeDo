@@ -40,23 +40,44 @@ $transportFee = 30000;
                 <span class="mx-5">Thanh toán khi nhận hàng COD</span><a href="#" class="text-rose-500">THAY ĐỔI</a>
             </div>
         </div>
-        <hr />
-        <div class="flex items-center justify-between mt-4">
-            <div class="text-start">
-                <div class="">Tổng tiền hàng</div>
-                <div class="">Phí vận chuyển</div>
-                <div class="">Tổng thanh toán</div>
+        <form method="GET" action="<?= ROOT ?>/checkout/success">
+            <div class="flex items-center justify-between">
+                <span class="fs-5 font-bold">Hình thức nhận hàng</span>
+                <div>
+                    <div>
+                        <label>
+                            <input type="radio" name="shipping_method" value="store" required>
+                            Nhận tại cửa hàng
+                        </label>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" name="shipping_method" value="home" required>
+                            Giao hàng tận nơi
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Truyền thêm totalcost như hidden input -->
+            <input type="hidden" name="totalcost" value="<?= $totalCost1 + $transportFee ?>">
+            <hr />
+            <div class="flex items-center justify-between mt-4">
+                <div class="text-start">
+                    <div class="">Tổng tiền hàng</div>
+                    <div class="">Phí vận chuyển</div>
+                    <div class="">Tổng thanh toán</div>
+                </div>
+                <div class="text-end">
+                    <div class=""><?= number_format($totalCost1) ?>₫</div>
+                    <div class=""><?= number_format($transportFee) ?>₫</div>
+                    <div class="fs-4 text-rose-500"><?= number_format($totalCost1 + $transportFee) ?>₫</div>
+                </div>
             </div>
             <div class="text-end">
-                <div class=""><?= number_format($totalCost1) ?>₫</div>
-                <div class=""><?= number_format($transportFee) ?>₫</div>
-                <div class="fs-4 text-rose-500"><?= number_format($totalCost1 + $transportFee) ?>₫</div>
+                <button type="submit" class="inline-block mt-10 px-5 py-3 bg-rose-500 text-white rounded-lg">Đặt hàng</button>
             </div>
-        </div>
-        <div class="text-end">
-            <a href="<?= ROOT ?>/checkout/success?totalcost=<?= $totalCost1 + $transportFee ?>" class="inline-block mt-10 px-5 py-3 bg-rose-500 text-white rounded-lg">Đặt hàng</a>
-        </div>
-
+        </form>
     </div>
 </main>
 <?php require "./src/Views/layouts/footer.php";

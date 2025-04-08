@@ -42,6 +42,12 @@ $imageModel = new ImageModel(); ?>
                 <span class="mx-5 text-rose-500">Thanh toán khi nhận hàng(COD)</span>
             </div>
         </div>
+        <div class="flex items-center justify-between py-2">
+            <span class="fs-5 font-bold">Hình thức nhận hàng</span>
+            <div>
+                <span class="mx-5 text-rose-500"><?= $order->shipping_method === 'store' ?  "Nhận tại cửa hàng" : "Giao hàng tận nơi" ?></span>
+            </div>
+        </div>
         <hr />
         <div class="flex items-center justify-between mt-4">
             <div class="text-start">

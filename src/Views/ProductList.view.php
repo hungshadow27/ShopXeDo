@@ -77,9 +77,15 @@ $imageModel = new ImageModel();
                             <?php echo number_format($product->price, 0, ',', '.'); ?> VNĐ
                         </p>
                         <p class="text-sm text-yellow-300">Đánh giá: <?= $ratingProduct[$product->id] ?>/5★</p>
-                        <button onclick="addCart(event, <?= $product->id ?>)" class="mt-2 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
-                            Thêm vào giỏ
-                        </button>
+                        <?php if ($product->stock_quantity > 0): ?>
+                            <button onclick="addCart(event, <?= $product->id ?>)" class="mt-2 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+                                Thêm vào giỏ
+                            </button>
+                        <?php else: ?>
+                            <button class="mt-2 w-full border-2 border-red-500 text-red-500 py-2 rounded">
+                                Hết hàng
+                            </button>
+                        <?php endif; ?>
                     </div>
                 </a>
             <?php } ?>

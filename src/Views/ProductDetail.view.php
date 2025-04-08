@@ -43,9 +43,15 @@ $userModel = new UserModel();
                         <?php echo number_format($product->price, 0, ',', '.'); ?> VNĐ
                     </p>
                     <p class="text-yellow-500 mb-2">Đánh giá: <?= $ratingProduct ?>/5 ★</p>
-                    <button onclick="addCart(event, <?= $product->id ?>)" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 mb-4">
-                        Thêm vào giỏ hàng
-                    </button>
+                    <?php if ($product->stock_quantity > 0): ?>
+                        <button onclick="addCart(event, <?= $product->id ?>)" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 mb-4">
+                            Thêm vào giỏ hàng
+                        </button>
+                    <?php else: ?>
+                        <button class="w-full border-2 border-red-500 text-red-500 py-3 rounded-lg">
+                            Hết hàng
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="mt-8">

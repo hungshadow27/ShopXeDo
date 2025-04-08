@@ -2,7 +2,7 @@
 class OrderModel
 {
     use Database;
-    public function createNewOrder($user_id, $product, $shippingAddress, $totalCost, $status, $ispaid)
+    public function createNewOrder($user_id, $product, $shippingAddress, $totalCost, $status, $ispaid, $shipping_method)
     {
         $rs = $this->table('orders')
             ->insert([
@@ -11,7 +11,8 @@ class OrderModel
                 'shipping_address' => $shippingAddress,
                 'total_cost' => $totalCost,
                 'status' => $status,
-                'ispaid' => $ispaid
+                'ispaid' => $ispaid,
+                'shipping_method' => $shipping_method
             ]);
         return $rs;
     }
@@ -45,7 +46,7 @@ class OrderModel
         }
         return $orders;
     }
-    public function updateOrderById($order_id, $user_id, $product, $shippingAddress, $totalCost, $status, $ispaid, $finish_date)
+    public function updateOrderById($order_id, $user_id, $product, $shippingAddress, $totalCost, $status, $ispaid, $finish_date, $shipping_method)
     {
         $rs = $this->table('orders')
             ->update('id', $order_id, [
@@ -56,7 +57,8 @@ class OrderModel
                 'total_cost' => $totalCost,
                 'status' => $status,
                 'ispaid' => $ispaid,
-                'finish_date' => $finish_date
+                'finish_date' => $finish_date,
+                'shipping_method' => $shipping_method
             ]);
     }
     public function deleteOrderById($order_id)
@@ -72,11 +74,12 @@ class OrderModel
         return $rs;
     }
 
-    public function updateOrder($id, $shipping_address, $status, $finish_date = null)
+    public function updateOrder($id, $shipping_address, $status, $shipping_method, $finish_date = null)
     {
         $data = [
             'shipping_address' => $shipping_address,
-            'status' => $status
+            'status' => $status,
+            'shipping_method' => $shipping_method
         ];
         if ($finish_date) {
             $data['finish_date'] = $finish_date;

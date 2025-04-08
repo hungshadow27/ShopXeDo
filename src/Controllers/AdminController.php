@@ -183,9 +183,10 @@ class AdminController
                 $shipping_address = trim($_POST['shipping_address']);
                 $status = intval($_POST['status']);
                 $finish_date = ($status == 2 && !empty($_POST['finish_date'])) ? $_POST['finish_date'] : null;
+                $shipping_method = $_POST['shipping_method'];
 
                 if ($shipping_address && in_array($status, [-1, 0, 1, 2])) {
-                    $orderModel->updateOrder($id, $shipping_address, $status, $finish_date);
+                    $orderModel->updateOrder($id, $shipping_address, $status, $shipping_method, $finish_date);
                     $success = 'Cập nhật đơn hàng thành công!';
                     $order = $orderModel->getOrderById($id);
                 } else {
@@ -224,6 +225,7 @@ class AdminController
                 $tempOrder->status_str = $orderModel->getOrderStatusStr($order->status);
                 $tempOrder->created_at = $order->created_at;
                 $tempOrder->finish_date = $order->finish_date;
+                $tempOrder->shipping_method = $order->shipping_method;
 
                 // Lấy thông tin người dùng
                 $orderUser = $userModel->getUserById($order->user_id);

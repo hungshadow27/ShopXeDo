@@ -29,12 +29,14 @@
                         <a href="#" class="transition duration-300 ease-in-out hover:text-rose-500">Email: XXX@gmail.com</a>
                     </li>
                     <li class="py-6">
-                        <div class="inline-block">WEB ĐƯỢC PHÁT TRIỂN BỞI<a href="#" class="text-xl font-bold text-rose-500 ml-2">HUNGSHADOW</a></div>
+                        <a href="#" class="transition duration-300 ease-in-out hover:text-rose-500">Địa chỉ: 36 Ngân Cầu, Quyết Tiến, Tiên Lãng</a>
                     </li>
                 </ul>
             </div>
         </div>
-
+        <div class="max-w-6xl mx-auto">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d818.5228181228463!2d106.54870916325842!3d20.73377655619935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x314a75ed06fd66d1%3A0xc708613a93b88b2b!2zVHLGsOG7nW5nIFRIQ1MgeMOjIFF1eeG6v3QgVGnhur9u!5e1!3m2!1svi!2s!4v1744126986343!5m2!1svi!2s" height="450" class="w-full" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </footer>
     <!-- Toast -->
     <div id="toast-success" class="hidden fixed top-[20%] right-3 items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow-sm dark:text-gray-400 dark:bg-gray-800" role="alert">

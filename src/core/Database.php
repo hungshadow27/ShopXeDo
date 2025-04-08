@@ -63,13 +63,12 @@ trait Database
         // Xây dựng câu lệnh WHERE từ mảng conditions
         $whereClauses = [];
         foreach ($conditions as $field => $value) {
-            // Sử dụng prepared statements để tránh SQL injection
             $whereClauses[] = "$field = ?";
         }
         $whereClause = implode(' AND ', $whereClauses);
 
-        $sql = "SELECT * FROM $this->table WHERE " . $whereClause;
-        $sql .= " LIMIT $this->limit OFFSET $this->offset";
+        // Thêm ORDER BY id DESC vào câu lệnh
+        $sql = "SELECT * FROM $this->table WHERE $whereClause ORDER BY id DESC LIMIT $this->limit OFFSET $this->offset";
 
         // Chuẩn bị statement
         $stmt = $this->conn->prepare($sql);
@@ -77,16 +76,15 @@ trait Database
         if ($stmt) {
             // Bind parameters
             $values = array_values($conditions);
-            $types = str_repeat('s', count($values)); // Giả sử tất cả là string, có thể điều chỉnh theo nhu cầu
+            $types = str_repeat('s', count($values)); // Có thể đổi logic nếu cần kiểu khác
             $stmt->bind_param($types, ...$values);
 
-            // Thực thi query
             $stmt->execute();
             $result = $stmt->get_result();
 
             $this->resetQuery();
 
-            $returnData = array();
+            $returnData = [];
             while ($row = $result->fetch_object()) {
                 $returnData[] = $row;
             }
@@ -101,10 +99,11 @@ trait Database
     }
 
 
+
     public function getAll()
     {
         $this->connect();
-        $sql = "SELECT * FROM $this->table LIMIT ? OFFSET ?";
+        $sql = "SELECT * FROM $this->table ORDER BY id DESC LIMIT ? OFFSET ?";
         $this->statement = $this->conn->prepare($sql);
         $this->statement->bind_param('ss', $this->limit, $this->offset);
         $this->statement->execute();
@@ -118,6 +117,7 @@ trait Database
         $this->conn->close();
         return $returnData;
     }
+
     public function getAllDESC()
     {
         $this->connect();

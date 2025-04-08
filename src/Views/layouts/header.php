@@ -50,8 +50,7 @@ $imageModel = new ImageModel(); ?>
                     <li><a href="<?= ROOT ?>/category" class="transition duration-300 ease-in-out hover:text-rose-500">SẢN PHẨM</a></li>
                     <li><a href="<?= ROOT ?>/comingsoon" class="transition duration-300 ease-in-out hover:text-rose-500">DỊCH VỤ</a></li>
                     <li><a href="<?= ROOT ?>/post" class="transition duration-300 ease-in-out hover:text-rose-500">BÀI VIẾT</a></li>
-                    <li><a href="<?= ROOT ?>/comingsoon" class="transition duration-300 ease-in-out hover:text-rose-500">THÔNG TIN</a></li>
-                    <li><a href="<?= ROOT ?>/comingsoon" class="transition duration-300 ease-in-out hover:text-rose-500">LIÊN HỆ</a></li>
+                    <li><a href="<?= ROOT ?>/info" class="transition duration-300 ease-in-out hover:text-rose-500">THÔNG TIN</a></li>
                 </ul>
                 <div class="flex items-center justify-center gap-3">
                     <a href="<?= ROOT ?>/cart" class="py-2 px-4 bg-white/10 border border-gray-500 rounded-3xl transition duration-300 ease-in-out hover:bg-white/20 cursor-pointer">

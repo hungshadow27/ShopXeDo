@@ -32,6 +32,13 @@
             <input type="text" value="<?php echo number_format($order->total_cost, 0, ',', '.') . ' VNĐ'; ?>" class="w-full p-2 border rounded bg-gray-100" disabled>
         </div>
         <div>
+            <label class="block text-sm font-medium mb-1">Hình thức nhận hàng</label>
+            <select name="shipping_method" class="w-full p-2 border rounded focus:outline-none focus:border-blue-500" required onchange="toggleFinishDate(this)">
+                <option value="store" <?php echo $order->shipping_method == 'store' ? 'selected' : ''; ?>>Nhận tại cửa hàng</option>
+                <option value="home" <?php echo $order->shipping_method == 'home' ? 'selected' : ''; ?>>Giao hàng tận nơi</option>
+            </select>
+        </div>
+        <div>
             <label class="block text-sm font-medium mb-1">Trạng thái</label>
             <select name="status" class="w-full p-2 border rounded focus:outline-none focus:border-blue-500" required onchange="toggleFinishDate(this)">
                 <option value="-1" <?php echo $order->status == -1 ? 'selected' : ''; ?>>Đã hủy</option>
